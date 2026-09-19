@@ -33,6 +33,7 @@ public class Document {
 
     private LocalDate expiryDate;
 
+
     @Enumerated(EnumType.STRING)
     private DocumentStatus status;
     private String documentHash;
