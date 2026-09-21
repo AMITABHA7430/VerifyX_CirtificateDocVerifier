@@ -4,6 +4,7 @@ import com.VerifyX.VX.Repository.DocumentRepository;
 import com.VerifyX.VX.dto.VerificationResponse;
 import com.VerifyX.VX.entity.Document;
 import com.VerifyX.VX.entity.DocumentStatus;
+import com.VerifyX.VX.exception.DocumentNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,7 +31,7 @@ public class VerificationService {
         Document document = documentRepository
                 .findByVerificationId(verificationId)
                 .orElseThrow(() ->
-                        new RuntimeException("Document not found"));
+                        new DocumentNotFoundException(verificationId));
 
         String submittedHash = hashingService.generateHash(file);
 

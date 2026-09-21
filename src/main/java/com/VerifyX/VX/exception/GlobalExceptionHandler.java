@@ -20,6 +20,17 @@ public class GlobalExceptionHandler {
                 "error", exception.getMessage()
         );
     }
+
+    @ExceptionHandler(DocumentNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handleDocumentNotFound(
+            DocumentNotFoundException exception) {
+
+        return Map.of(
+                "error", exception.getMessage()
+        );
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleValidationErrors(
