@@ -1,18 +1,20 @@
 VerifyX — Document Verification & Authenticity Platform
 
-A Java + Spring Boot backend designed to make digital document verification secure, simple, and traceable.
+A Java + Spring Boot backend built to make digital document verification secure, simple, and traceable.
 
-🚀 Overview
+GitHub • Features • Architecture • API • Security • Setup
 
-VerifyX is a backend-focused platform built to solve a real-world problem: digital certificates and documents can be copied, modified, or difficult to verify.
+1. Overview
 
-The system provides a secure workflow for organizations to issue documents and allows recipients or third parties to verify their authenticity and integrity.
+VerifyX is a backend-focused platform for issuing and verifying digital certificates and documents.
 
-🎯 Problem
+It addresses a real-world problem: digital documents can be copied, modified, or difficult to verify. VerifyX provides a centralized workflow to check document integrity, status, and verification details.
 
-Digital documents can be difficult to trust when shared electronically. A verifier may need to know:
+2. Problem Statement
 
-Was the document issued by the organization?
+When a digital certificate is shared, a verifier may need to know:
+
+Is it genuine?
 
 Has it been modified?
 
@@ -20,61 +22,9 @@ Is it still valid?
 
 Has it been revoked?
 
-VerifyX is designed to provide a centralized workflow for these checks.
+VerifyX is designed to answer these questions through a secure verification workflow.
 
-🔑 Key Features
-
-JWT authentication and role-based access control
-
-Document issuance and management
-
-SHA-256 hash-based integrity verification
-
-QR-code based verification
-
-Document status and revocation
-
-Audit logging for traceability
-
-Validation and global exception handling
-
-RESTful API design
-
-Swagger / OpenAPI documentation
-
-🛠️ Tech Stack
-
-Java | Spring Boot | Spring Security | JWT | Spring Data JPA | Hibernate | PostgreSQL | REST APIs | SHA-256 | QR Code | Swagger/OpenAPI | Docker | Git/GitHub
-
-🏗️ Backend Architecture
-
-VerifyX follows a Controller → Service → Repository architecture.
-
-Client / React
-      ↓
-   REST API
-      ↓
- Controller
-      ↓
-   Service
-      ↓
- Repository
-      ↓
- PostgreSQL
-
-Controller: Handles HTTP requests and API responses
-
-Service: Contains business logic
-
-Repository: Handles database operations with Spring Data JPA
-
-Entity: Represents database models
-
-Exception: Handles application errors centrally
-
-Config: Contains security and application configuration
-
-🔄 Core Workflow
+3. How It Works
 
 Organization
      ↓
@@ -84,36 +34,164 @@ Generate Verification ID
      ↓
 Generate SHA-256 Hash
      ↓
-Store Document Information
+Store Verification Data
      ↓
 Generate QR Code
      ↓
-User Scans / Enters Verification ID
+User Scans / Enters ID
      ↓
 Verify Document
      ↓
 VALID / TAMPERED / REVOKED / EXPIRED
 
-🔐 Document Integrity
+4. Key Features
 
-VerifyX uses SHA-256 as a digital fingerprint for document integrity.
+Feature
 
-Document → SHA-256 → Stored Hash
+Description
 
-During verification, the system can calculate the hash again and compare it with the trusted stored value. A matching hash indicates unchanged content; a different hash indicates that the content has changed.
+🔐 Authentication
+
+JWT-based authentication with Spring Security
+
+👥 Authorization
+
+Role-Based Access Control (RBAC)
+
+📄 Document Management
+
+Issue, store, verify, and revoke documents
+
+🔑 Integrity Check
+
+SHA-256 based document hash verification
+
+📱 QR Verification
+
+Quick access to document verification
+
+📝 Audit Logging
+
+Track important document actions
+
+✅ Validation
+
+Request validation and global exception handling
+
+🌐 REST APIs
+
+Backend APIs for application operations
+
+📖 API Docs
+
+Swagger / OpenAPI documentation
+
+5. Technology Stack
+
+Backend: Java, Spring Boot, Spring MVC, Spring Security, Spring AI
+
+Persistence: Spring Data JPA, Hibernate
+
+Database: PostgreSQL
+
+Security: JWT, SHA-256
+
+API & Development: REST APIs, Swagger/OpenAPI, Postman
+
+Tools: Maven, Git, GitHub, Docker, IntelliJ IDEA, Eclipse
+
+6. Backend Architecture
+
+VerifyX follows a layered Controller → Service → Repository architecture.
+
+             Client / React
+                   │
+                   ▼
+               REST API
+                   │
+                   ▼
+             ┌──────────┐
+             │Controller│
+             └────┬─────┘
+                  ↓
+             ┌──────────┐
+             │ Service  │
+             └────┬─────┘
+                  ↓
+             ┌──────────┐
+             │Repository│
+             └────┬─────┘
+                  ↓
+             ┌──────────┐
+             │PostgreSQL│
+             └──────────┘
+
+Layer Responsibilities
+
+Controller: Handles HTTP requests and API responses
+
+Service: Contains business logic
+
+Repository: Handles database operations using JPA
+
+Entity: Represents persistent data models
+
+Exception: Centralized error handling
+
+Config: Security and application configuration
+
+7. Security & Document Integrity
+
+JWT + Spring Security
+
+Authentication and authorization are handled through Spring Security and JWT, with role-based access to protected resources.
+
+SHA-256 Verification
+
+Each document can be represented by a SHA-256 hash.
+
+Document
+   ↓
+SHA-256
+   ↓
+Stored Hash
+
+During verification, the system can calculate the hash again and compare it with the trusted stored hash.
+
+Stored Hash
+     ↓
+   Compare
+     ↑
+Document → SHA-256
+
+A matching hash indicates unchanged content; a different hash indicates that the checked content has changed.
 
 Hashing verifies integrity against a trusted original record; hashing alone does not prove who originally issued a document.
 
-🗄️ Database Design
+8. Database Design
 
 Organization
    ├── User
    └── Document
           └── AuditLog
 
-A document can store its verification ID, type, number, recipient, issue/expiry dates, status, SHA-256 hash, and issuing organization.
+Document Data
 
-🌐 REST API
+Verification ID
+
+Document type and number
+
+Recipient
+
+Issue and expiry dates
+
+Status
+
+SHA-256 hash
+
+Issuing organization
+
+9. REST API
 
 Example endpoints:
 
@@ -124,9 +202,10 @@ POST /api/documents
 GET  /api/documents
 GET  /api/documents/{id}
 POST /api/documents/{id}/revoke
+
 GET  /api/verify/{verificationId}
 
-📂 Backend Structure
+10. Backend Project Structure
 
 src/main/java/com/VerifyX/VX/
 ├── config/
@@ -137,22 +216,54 @@ src/main/java/com/VerifyX/VX/
 ├── service/
 └── VxApplication.java
 
+11. Getting Started
 
-📚 What I Learned
+Prerequisites
 
-This project gave me practical experience in:
+Java
 
-Java backend development
+Maven
 
-Spring Boot and REST APIs
+PostgreSQL
 
-Spring Security and JWT
+Git
 
-JPA/Hibernate and PostgreSQL
+Clone
 
-Layered backend architecture
+git clone <YOUR-REPOSITORY-URL>
+cd VerifyX
 
-SHA-256 document integrity verification
+Configure Database
+
+Update your PostgreSQL configuration in:
+
+src/main/resources/application.properties
+
+Run
+
+./mvnw spring-boot:run
+
+Application:
+
+http://localhost:8080
+
+12. Project Links
+
+
+
+13. Key Learning
+
+Through VerifyX, I gained hands-on experience in:
+
+Java backend development with Spring Boot
+
+REST API design and layered architecture
+
+Spring Security and JWT authentication
+
+JPA/Hibernate with PostgreSQL
+
+Document integrity using SHA-256
 
 QR-based verification workflows
 
@@ -160,9 +271,12 @@ Validation and exception handling
 
 Building software around a real-world problem
 
-👨‍💻 Author
+14. Author
 
 Amitabha Ghosh
-Computer Science & Engineering Student
 
-LinkedIn:[ https://linkedin.com/in/amitabha-ghosh](https://lnkd.in/p/dPUiJQfK)
+Computer Science & Engineering Student | Java Backend Development
+
+LinkedIn · GitHub
+
+⭐ If you find the project interesting, consider giving it a star!
